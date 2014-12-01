@@ -1,0 +1,14 @@
+[Unit]
+Description=Elephants App
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill 192.168.56.2:5000/guzzler/elephants
+ExecStartPre=-/usr/bin/docker rm 192.168.56.2:5000/guzzler/elephants
+ExecStartPre=/usr/bin/docker pull 192.168.56.2:5000/guzzler/elephants
+ExecStart=/usr/bin/docker run -d -p 3000:3000 192.168.56.2:5000/guzzler/elephants 
+
+[Install]
+WantedBy=multi-user.target
