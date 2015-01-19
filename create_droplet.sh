@@ -38,7 +38,10 @@ delete() {
     http DELETE https://api.digitalocean.com/v2/droplets/$1 "Authorization: Bearer $DIGITAL_OCEAN_TOKEN"
 }
 
-# switch on $1 - sh script delete <id>
+if [ ! $DIGITAL_OCEAN_TOKEN ]; then
+    echo You must set an environment variable called DIGITAL_OCEAN_TOKEN
+    exit
+fi
 
 case "$1" in
     list) list
